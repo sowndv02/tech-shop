@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xlmns:th="http://www.thymeleaf.org"> 
   <head>
     <title>Title</title>
     <!-- Required meta tags -->
@@ -24,6 +24,9 @@
                   List of categories
                 </div>
                 <div class="card-body">
+                  <div th:if="${message!=null}" class="alert alert-primary" role="alert">
+                    <i>[[${message}]]</i>
+                  </div>
                   <table class="table table-striped table-inverse">
                 <thead class="thead-inverse">
                   <tr>
@@ -33,25 +36,16 @@
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td scope="row">C01</td>
-                      <td>Hat</td>
+                    <tr th:each="category : ${categories}">
+                      <td scope="row">[[${category.categoryId}]]</td>
+                      <td th:text="${category.name}"></td>
                       <td>
-                        <a href="" class="btn btn-outline-info"><i class="fas fa-edit"></i></a>
-                        <a href="" class="btn btn-outline-warning"><i class="fas fa-recycle"></i></a>
-                        <a href="" class="btn btn-outline-danger"><i class="fas fa-info"></i></a>
+                        <a th:href="@{|/admin/categories/view/${category.categoryId}|}" class="btn btn-outline-info"><i class="fas fa-info"></i></a>
+                        <a th:href="@{|/admin/categories/edit/${category.categoryId}|}" class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
+                        <a th:href="@{|/admin/categories/delete/${category.categoryId}|}" class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a>
                       </td>
                     </tr>
 
-                    <tr>
-                      <td scope="row">C01</td>
-                      <td>Hat</td>
-                      <td>
-                        <a href="" class="btn btn-outline-info"><i class="fas fa-edit"></i></a>
-                        <a href="" class="btn btn-outline-warning"><i class="fas fa-recycle"></i></a>
-                        <a href="" class="btn btn-outline-danger"><i class="fas fa-info"></i></a>
-                      </td>
-                    </tr>
                   </tbody>
               </table>
                 </div>

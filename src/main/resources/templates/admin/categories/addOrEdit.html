@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xlmns:th="http://www.thymeleaf.org">
   <head>
     <title>Title</title>
     <!-- Required meta tags -->
@@ -19,7 +19,8 @@
         </header>
         <section class="row">
             <div class="col-6 offset-3 mt-4">
-            <form action="" method="Post">
+            <form th:action="@{/admin/categories/saveOrUpdate}" method="Post" th:object="${category}">
+
                 <div class="card">
                     <div class="card-header">
                         <h2>Add New Category</h2>
@@ -27,19 +28,19 @@
                     <div class="card-body">
                         <div class="form-group">
                           <label for="categoryId">CategoryId:</label>
-                          <input type="text" class="form-control" name="categoryId" id="categoryId" aria-describedby="categoryIdHId" placeholder="Input categoryId">
+                          <input readonly type="text" class="form-control" th:field="*{categoryId}" aria-describedby="categoryIdHId" placeholder="Input categoryId">
                           <small id="categoryIdHId" class="form-text text-muted">CategoryId is required</small>
                         </div>
 
                         <div class="form-group">
                           <label for="name">Name</label>
-                          <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHId" placeholder="Input name">
+                          <input type="text" class="form-control" th:field="*{name}" aria-describedby="nameHId" placeholder="Input name">
                           <small id="nameHId" class="form-text text-muted">Name is required</small>
                         </div>
                     </div>
                     <div class="card-footer text-muted">
                       <button type="reset" class="btn btn-secondary">Reset</button>
-                      <button class="btn btn-success">List Categories</button>
+                      <a th:href="@{/admin/categories/list}" class="btn btn-success">List Categories <a/>
                       <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
                     </div>
                 </div>

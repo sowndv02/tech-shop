@@ -1,15 +1,32 @@
 package sondv.shop.controller.admin;
 
+import java.util.List;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import sondv.shop.domain.Category;
+import sondv.shop.model.CategoryDto;
+import sondv.shop.service.CategoryService;
 
 @Controller
-@RequestMapping("amdin/categories")
+@RequestMapping("admin/categories")
 public class CategoryController {
 	
+	@Autowired
+	CategoryService categoryService;
+	
 	@GetMapping("add")
-	public String add() {
+	public String add(Model model) {
+		model.addAttribute("category", new CategoryDto());
+		
 		 return "admin/categories/addOrEdit";
 	}
 	
@@ -23,13 +40,23 @@ public class CategoryController {
 		return "redirect:/admin/categories";
 	}
 	
-	@GetMapping("saveOrUpdate")
-	public String saveOrUpdate() {
-		return "redirect:/admin/categories";
+	@PostMapping("saveOrUpdate")
+	public ModelAndView saveOrUpdate(ModelMap model, CategoryDto dto) {
+		Category entity = new Category();
+		
+		BeanUtils.copyProperties(dto, entity);
+		
+		categoryService.save(entity);
+		model.addAttribute("message", "Category is saved!");
+		return new ModelAndView("forward:/admin/categories", model);
 	}
 	
-	@GetMapping("")
-	public String list() {
+	@RequestMapping("")
+	public String list(ModelMap model) {
+		
+		List<Category> list = categoryService.findAll();
+		model.addAttribute("categories", list);
+		
 		return "admin/categories/list";
 	}
 	
