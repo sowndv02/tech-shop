@@ -42,7 +42,7 @@ public class Product implements Serializable {
 	private int unitPrice;
 
 	@Column(length = 200)
-	private String img;
+	private String image;
 
 	@Column(columnDefinition = "nvarchar(500) not null")
 	private String description;
