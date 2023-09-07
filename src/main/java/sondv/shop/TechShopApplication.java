@@ -16,10 +16,10 @@ public class TechShopApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TechShopApplication.class, args);
 	}
-	
+
 	@Bean
 	CommandLineRunner init(StorageService storageService) {
-		return(args ->{
+		return (args -> {
 			storageService.init();
 		});
 	}

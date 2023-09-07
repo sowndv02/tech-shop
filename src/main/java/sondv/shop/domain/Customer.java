@@ -22,8 +22,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name =  "customers")
-public class Customer implements Serializable{
+@Table(name = "customers")
+public class Customer implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
@@ -39,7 +39,7 @@ public class Customer implements Serializable{
 	private Date registeredDate;
 	@Column(nullable = false)
 	private short status;
-	
+
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
 	private Set<Order> orders;
 }

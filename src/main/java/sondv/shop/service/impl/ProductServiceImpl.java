@@ -18,7 +18,7 @@ import sondv.shop.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-    @Override
+	@Override
 	public <S extends Product> S save(S entity) {
 		return productRepository.save(entity);
 	}
@@ -174,6 +174,6 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Autowired
-    private ProductRepository productRepository;
+	private ProductRepository productRepository;
 
 }

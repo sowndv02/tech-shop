@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "accounts")
-public class Account implements Serializable{
+public class Account implements Serializable {
 	@Id
 	@Column(length = 30)
 	private String userName;

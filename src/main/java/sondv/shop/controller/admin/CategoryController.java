@@ -22,17 +22,17 @@ import sondv.shop.service.CategoryService;
 @Controller
 @RequestMapping("admin/categories")
 public class CategoryController {
-	
+
 	@Autowired
 	CategoryService categoryService;
-	
+
 	@GetMapping("add")
 	public String add(Model model) {
 		model.addAttribute("category", new CategoryDto());
-		
-		 return "admin/categories/addOrEdit";
+
+		return "admin/categories/addOrEdit";
 	}
-	
+
 	@GetMapping("edit/{categoryId}")
 	public String edit() {
 		return "admin/categories/addOrEdit";
@@ -42,31 +42,29 @@ public class CategoryController {
 	public String delete() {
 		return "redirect:/admin/categories";
 	}
-	
+
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, 
-			@Valid @ModelAttribute Category dto,
-			BindingResult result) {
-		if(result.hasErrors()) {
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute Category dto, BindingResult result) {
+		if (result.hasErrors()) {
 			return new ModelAndView("admin/categories/addOrEdit");
 		}
 		Category entity = new Category();
-		
+
 		BeanUtils.copyProperties(dto, entity);
 		categoryService.save(entity);
 		model.addAttribute("message", "Category is saved!");
 		return new ModelAndView("forward:/admin/categories", model);
 	}
-	
+
 	@RequestMapping("")
 	public String list(ModelMap model) {
-		
+
 		List<Category> list = categoryService.findAll();
 		model.addAttribute("categories", list);
-		
+
 		return "admin/categories/list";
 	}
-	
+
 	@GetMapping("search")
 	public String search() {
 		return "admin/categories/search";

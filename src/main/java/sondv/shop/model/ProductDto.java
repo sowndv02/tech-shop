@@ -12,15 +12,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductDto {
-    private Integer productId;
-    private String name;
-    private int quantity;
-    private double unitPrice;
-    private String image;
-    private MultipartFile imageFile;
-    private String description;
-    private double discount;
-    private Date enteredDate;
-    private short status;
-    private Integer categoryId;
+	private Integer productId;
+	private String name;
+	private int quantity;
+	private double unitPrice;
+	private String image;
+	private MultipartFile imageFile;
+	private String description;
+	private double discount;
+	private Date enteredDate;
+	private short status;
+	private Integer categoryId;
+	private Boolean isEdit;
 }

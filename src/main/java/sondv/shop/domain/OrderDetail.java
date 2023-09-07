@@ -19,20 +19,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "orderDetails")
-public class OrderDetail implements Serializable{
+public class OrderDetail implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int orderDetailId;
 	@Column(nullable = false)
-	
+
 	private int quantity;
 	@Column(nullable = false)
 	private double unitPrice;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "productId")
 	private Product product;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "orderId")
 	private Order order;

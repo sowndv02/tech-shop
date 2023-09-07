@@ -20,14 +20,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "Categories")
-public class Category implements Serializable{
+public class Category implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer categoryId;
-	
+
 	@Column(name = "categoryName", length = 100, columnDefinition = "nvarchar(100) not null")
 	private String name;
-	
+
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 	private Set<Product> products;
 }

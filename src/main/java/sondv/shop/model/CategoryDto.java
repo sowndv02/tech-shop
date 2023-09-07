@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CategoryDto implements Serializable{
+public class CategoryDto implements Serializable {
 
 	private Integer categoryId;
 	@NotEmpty

@@ -16,8 +16,8 @@ import sondv.shop.repository.CategoryRepository;
 import sondv.shop.service.CategoryService;
 
 @Service
-public class CategoryServiceImpl implements CategoryService{
-	
+public class CategoryServiceImpl implements CategoryService {
+
 	CategoryRepository categoryRepository;
 
 	public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -74,8 +74,6 @@ public class CategoryServiceImpl implements CategoryService{
 		categoryRepository.deleteInBatch(entities);
 	}
 
-	
-
 	@Override
 	public Optional<Category> findById(Integer id) {
 		return categoryRepository.findById(id);
@@ -96,7 +94,6 @@ public class CategoryServiceImpl implements CategoryService{
 		categoryRepository.deleteAllByIdInBatch(ids);
 	}
 
-
 	@Override
 	public void deleteAllInBatch() {
 		categoryRepository.deleteAllInBatch();
@@ -106,7 +103,6 @@ public class CategoryServiceImpl implements CategoryService{
 	public Category getOne(Integer id) {
 		return categoryRepository.getOne(id);
 	}
-
 
 	@Override
 	public long count() {
@@ -147,6 +143,5 @@ public class CategoryServiceImpl implements CategoryService{
 	public void deleteAll() {
 		categoryRepository.deleteAll();
 	}
-	
 
 }
