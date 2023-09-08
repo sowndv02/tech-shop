@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import groovyjarjarantlr4.v4.Tool.Option;
+import io.micrometer.common.util.StringUtils;
 import jakarta.validation.Valid;
 import sondv.shop.domain.Category;
 import sondv.shop.domain.Product;
@@ -91,8 +93,21 @@ public class ProductController {
 	}
 
 	@GetMapping("delete/{productId}")
-	public String delete() {
-		return "redirect:/admin/products";
+	public ModelAndView delete(ModelMap model, @PathVariable("productId") Integer productId) {
+
+
+		Optional opt = productService.findById(productId);
+		if(opt.isPresent()){
+			if(!StringUtils.isEmpty(((Product) opt.get()).getImage())){
+				storageService.delete(((Product) opt.get()).getImage());
+			}
+			productService.delete((Product) opt.get());
+			model.addAttribute("message", "Product is deleted!");
+		}else{
+			model.addAttribute("message", "Product is not found!");
+		}
+		
+		return new ModelAndView("forward:/admin/products", model) ;
 	}
 
 	@PostMapping("saveOrUpdate")
