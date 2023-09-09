@@ -15,58 +15,68 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import jakarta.validation.Valid;
-import sondv.shop.domain.Category;
-import sondv.shop.model.CategoryDto;
-import sondv.shop.service.CategoryService;
+import sondv.shop.domain.Account;
+import sondv.shop.model.AccountDto;
+import sondv.shop.service.AccountService;
 
 @Controller
 @RequestMapping("admin/accounts")
 public class AccountController {
 
 	@Autowired
-	CategoryService categoryService;
+	AccountService accountService;
+	
 
 	@GetMapping("add")
 	public String add(Model model) {
-		model.addAttribute("category", new CategoryDto());
-
-		return "admin/categories/addOrEdit";
+		model.addAttribute("account", new AccountDto());
+		
+		
+		
+		return "admin/accounts/addOrEdit";
 	}
-
-	@GetMapping("edit/{categoryId}")
-	public String edit() {
-		return "admin/categories/addOrEdit";
-	}
-
-	@GetMapping("delete/{categoryId}")
-	public String delete() {
-		return "redirect:/admin/categories";
-	}
-
+	
+	
 	@PostMapping("saveOrUpdate")
-	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute Category dto, BindingResult result) {
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute Account dto, BindingResult result) {
 		if (result.hasErrors()) {
-			return new ModelAndView("admin/categories/addOrEdit");
+			return new ModelAndView("admin/accounts/addOrEdit");
 		}
-		Category entity = new Category();
+		Account entity = new Account();
 
 		BeanUtils.copyProperties(dto, entity);
-		categoryService.save(entity);
-		model.addAttribute("message", "Category is saved!");
-		return new ModelAndView("forward:/admin/categories", model);
+		accountService.save(entity);
+		model.addAttribute("message", "Account is saved!");
+		return new ModelAndView("forward:/admin/accounts", model);
 	}
-
+	
+	
+	
 	@RequestMapping("")
 	public String list(ModelMap model) {
 
-		List<Category> list = categoryService.findAll();
-		model.addAttribute("categories", list);
+		List<Account> list = accountService.findAll();
+		model.addAttribute("accounts", list);
 
-		return "admin/categories/list";
+		return "admin/accounts/list";
 	}
 
-	@GetMapping("search")
-	public String search() {
-		return "admin/categories/search";
-	}
+	
+
+//	@GetMapping("edit/{categoryId}")
+//	public String edit() {
+//		return "admin/accounts/addOrEdit";
+//	}
+//
+//	@GetMapping("delete/{categoryId}")
+//	public String delete() {
+//		return "redirect:/admin/accounts";
+//	}
+//
+
+//
+//	@GetMapping("search")
+//	public String search() {
+//		return "admin/accounts/search";
+//	}
 }

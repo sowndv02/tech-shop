@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import sondv.shop.domain.Account;
@@ -22,8 +23,26 @@ public class AccountServiceImpl implements AccountService{
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    
+    @Override
+	public Account login(String username, String password) {
+    	Optional<Account> optExist = findById(username);
+    	if(optExist.isPresent() && bCryptPasswordEncoder.matches(password, optExist.get().getPassword())) {
+    		optExist.get().setPassword("");
+    		return optExist.get();
+    	}
+    	return null;
+    }
+    
+    
 	@Override
 	public <S extends Account> S save(S entity) {
+		
+		entity.setPassword(bCryptPasswordEncoder.encode(entity.getPassword()));
+		
 		return accountRepository.save(entity);
 	}
 

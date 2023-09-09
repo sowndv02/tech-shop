@@ -75,5 +75,7 @@ public interface AccountService {
 	<S extends Account> List<S> saveAll(Iterable<S> entities);
 
 	<S extends Account> S save(S entity);
+
+	Account login(String username, String password);
     
 }
