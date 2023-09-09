@@ -42,8 +42,15 @@ public class AdminLoginController {
 			model.addAttribute("message", "Invalid username or password!");
 			return new ModelAndView("/admin/accounts/login", model);
 		}
-		
 		session.setAttribute("username", account.getUserName());
+		
+		Object ruri = session.getAttribute("redirect-url");
+		if(ruri != null) {
+			session.removeAttribute("redirect-url");
+			return new ModelAndView("redirect:" + ruri);
+		}
+		
+		
 		return new ModelAndView("forwart:/admin/accounts", model);
 	}
 	
